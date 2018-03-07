@@ -1,0 +1,55 @@
+run.config:
+  # install php and associated runtimes
+  engine: php
+
+  # php engine configuration (php version, extensions, etc)
+  engine.config:
+
+    # sets the document root to public
+    document_root: public
+
+    # sets the php version to 7.2
+    runtime: php-7.2
+
+    # enables php extensions
+    extensions:
+      - pdo
+      - mbstring
+      - tokenizer
+      - session
+      - zip
+      - dom
+      - xml
+      - ctype
+      - xmlwriter
+      - pdo_mysql
+      - imagick
+      - fileinfo
+      - gd
+    
+    shared_writable_dirs:
+    - app/storage/cache
+    - app/storage/logs
+    - app/storage/meta
+    - app/storage/sessions
+    - app/storage/views
+    - app/storage/app/*
+    #- app/storage/app/public/uploads
+    # if you users can upload to uploads folder
+    # - /public/uploads 
+ 
+  extra_packages:
+    - nodejs
+  
+  cache_dirs:
+    - node_modules
+  
+  extra_path_dirs:
+    - node_modules/.bin
+  
+  extra_steps:
+    - yarn
+
+# MySQL database
+data.db:
+  image: nanobox/mysql:5.7
