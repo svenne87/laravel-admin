@@ -24,8 +24,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
-        if ($user->hasPermissionTo('show users', 'api')) {
+        if (Auth::user()->hasPermissionTo('show users', 'api')) {
             // We are allowed to show Users
             
             // Handle Sort 
@@ -99,9 +98,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-
-        if ($user->hasPermissionTo('show users', 'api')) {
+        if (Auth::user()->hasPermissionTo('show users', 'api')) {
             // We are allowed to show any User
             $loadedUser = User::findOrFail($id);
             $resource = new UserResource($loadedUser);
@@ -232,18 +229,30 @@ class UserController extends Controller
 
 
 /*
+    https://github.com/stevebauman/revision   - install?
     https://github.com/Intervention/image
     https://github.com/spatie/laravel-permission#installation
     https://github.com/atayahmet/laravel-nestable
     https://laracasts.com/series/laravel-5-fundamentals/episodes/25
-    https://statamic.com/
     https://www.froala.com/wysiwyg-editor  - but in vue
     https://github.com/ratiw/vuetable-2-tutorial-bootstrap/blob/master/src/components/MyVuetable.vue
     ( https://github.com/lavary/laravel-menu )
     https://bootstrap-vue.js.org/docs/components/
     https://github.com/hilongjw/vue-progressbar
-    https://tutsforweb.com/laravel-5-5-and-dropzone-js-uploading-images-with-removal-links/
+    
+    Tester update i UserController + allt i Roles, Permissions controller
+
+    Change vou-router to use child routes and simple bread crumbs
+    'welcome' -> 'master'
+    Should create .env och set certain values + copy default image and cretae avatars dir etc.
+    ln -s ../storage/app/public storage   (run in public (not in nanobox virtual))
+    500 duplicates view
     php artisan vue-i18n:generate
+    php artisan passport:install
+    Larval blade extend
+    https://cms.botble.com/admin
+    https://github.com/axios/axios/issues/690
+    https://tutsforweb.com/laravel-5-5-and-dropzone-js-uploading-images-with-removal-links/
     // UserResource conditional if admin or not...
     // TODO include permissions into Vue
     // TODO navbar image = make it a vue template?

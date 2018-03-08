@@ -30,4 +30,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
         'roles' => 'API\RoleController',
     ]);
     
+    Route::apiResources([
+        'permissions' => 'API\PermissionController',
+    ]);
 });

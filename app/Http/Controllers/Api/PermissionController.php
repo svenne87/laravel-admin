@@ -4,30 +4,29 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RoleResource;
-use Spatie\Permission\Models\Role;
+use App\Http\Resources\PermissionResource;
 use Spatie\Permission\Models\Permission;
 use Auth;
 use Lang;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @param  \Illuminate\Http\Request  $request
+    * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        if (Auth::user()->hasPermissionTo('show roles', 'api')) {
-            // We are allowed to show Roles
+        if (Auth::user()->hasPermissionTo('show permissions', 'api')) {
+            // We are allowed to show Permissions
                      
             // Handle Sort 
             if (request()->has('sort')) {
                 list($sortCol, $sortDir) = explode('|', request()->sort);
-                $query = Role::orderBy($sortCol, $sortDir);
+                $query = Permission::orderBy($sortCol, $sortDir);
             } else {
-                $query = Role::orderBy('id', 'ASC');
+                $query = Permission::orderBy('id', 'ASC');
             }
     
             // Handle Filter
@@ -40,8 +39,8 @@ class RoleController extends Controller
             }
     
             $perPage = request()->has('per_page') ? (int) request()->per_page : 20;
-            $roles = $query->paginate($perPage);
-            return RoleResource::collection($roles);
+            $permissions = $query->paginate($perPage);
+            return PermissionResource::collection($permissions);
         } 
         return abort('403');
     }
@@ -65,14 +64,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        if (Auth::user()->hasPermissionTo('show roles', 'api')) {
-            // We are allowed to show any Role
-            $role = Role::findOrFail($id);
-            $resource = new RoleResource($role);
-
-            return $resource->response()->setStatusCode(200);
-        } 
-        return abort('403');
+        //
     }
 
     /**
@@ -95,11 +87,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        if (Auth::user()->hasPermissionTo('delete roles', 'api')) {
-            Role::destroy($id);
-            return Response::json([], 204);   
-        }
-
-        return abort('403');
+        //
     }
 }
