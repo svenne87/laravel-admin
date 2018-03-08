@@ -12,13 +12,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        if (App::environment() !== 'production') {
+        //if (App::environment() !== 'production') {
             $user = User::create([
                 'id'            => 1,
                 'name'          => 'Emil',
                 'password'      => bcrypt('password'),
                 'email'         => 'super-admin@example.com',
             ]);
-        }
+        //}
     }
 }

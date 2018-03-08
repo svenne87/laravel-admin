@@ -29,7 +29,7 @@
                 </div>
             @endif
 
-            @if ($errors->any())
+            @if (isset($errors) && $errors->any())
                 <div class="alert alert-danger">
 	                <button type="button" class="close" data-dismiss="alert">×</button>	
 	                {{ Lang::get('errors.form_error') }}
