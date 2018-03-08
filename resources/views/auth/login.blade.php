@@ -41,10 +41,9 @@
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ Lang::get('auth.remember_me') }}
-                                    </label>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="remember">{{ Lang::get('auth.remember_me') }}</label>
                                 </div>
                             </div>
                         </div>
