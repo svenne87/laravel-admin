@@ -4,6 +4,8 @@
             <ul>
                 <li v-on:click="toggleMenu"><router-link :to="{ name: 'home' }"><i class="icon-home mr-1"></i> {{ $t('general.home') }}</router-link></li>
                 <li v-on:click="toggleMenu"><router-link :to="{ name: 'users' }"><i class="icon-people mr-1"></i> {{ $t('general.users') }}</router-link></li>
+                <li v-on:click="toggleMenu"><router-link :to="{ name: 'roles' }"><i class="icon-organization mr-1"></i> {{ $t('general.roles') }}</router-link></li>
+                <li v-on:click="toggleMenu"><router-link :to="{ name: 'pages' }"><i class="icon-notebook mr-1"></i> {{ $t('general.pages') }}</router-link></li>
             </ul>
         </nav>
         <button class="slideout-trigger toggle-button">☰</button>

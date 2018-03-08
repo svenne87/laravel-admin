@@ -62,10 +62,13 @@ const i18n = new VueInternalization({
 // Router
 const routes = [
     { path: '/', name: 'home', component: require('./components/admin/dashboard/Dashboard.vue') },
-    { path: '/users', name: 'users', component: require('./components/admin/users/Users.vue') },
+    { path: '/users', name: 'users', component: require('./components/admin/users/UsersTable.vue') },
     { path: '/users/:id', name: 'user-edit', component: require('./components/admin/users/UserForm.vue') },
     { path: '/users/create', name: 'user-create', component: require('./components/admin/users/UserForm.vue') },
-    { path: '/pages/create', name: 'page-create', component: require('./components/admin/pages/PageForm.vue') },
+    { path: '/roles', name: 'roles', component: require('./components/admin/roles/RolesTable.vue') },
+    { path: '/roles/:id', name: 'role-edit', component: require('./components/admin/roles/RoleForm.vue') },
+    { path: '/roles/create', name: 'role-create', component: require('./components/admin/roles/RoleForm.vue') },
+    { path: '/pages', name: 'pages', component: require('./components/admin/pages/PagesTable.vue') },
 ];
 
 const router = new VueRouter({

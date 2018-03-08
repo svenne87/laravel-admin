@@ -127,7 +127,8 @@ export default {
             "profile_saved": "Your profile has been saved successfully.",
             "image_saved": "Your avatar has been updated successfully.",
             "deleted": "Resource has been deleted successfully",
-            "user_saved": "User has been saved successfully."
+            "user_saved": "User has been saved successfully.",
+            "role_saved": "Role has been saved successfully."
         },
         "general": {
             "email_address": "E-Mail Address",
@@ -142,6 +143,7 @@ export default {
             "search": "Search",
             "search_for": "Search for...",
             "create_user": "Create User",
+            "create_role": "Create Role",
             "edit": "Edit",
             "create": "Create",
             "delete": "Delete",
@@ -149,7 +151,11 @@ export default {
             "close": "Close",
             "confirm_text": "Are you sure you want to proceed?",
             "users": "Users",
-            "roles": "Roles"
+            "roles": "Roles",
+            "pages": "Pages",
+            "guard": "Guard",
+            "created": "Created",
+            "permissions": "Permissions"
         }
     }
 }

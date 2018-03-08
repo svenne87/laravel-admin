@@ -21,6 +21,7 @@ return [
     'search' => 'Search',
     'search_for' => 'Search for...',
     'create_user' => 'Create User',
+    'create_role' => 'Create Role',
     'edit' => 'Edit',
     'create' => 'Create',
     'delete' => 'Delete',
@@ -29,4 +30,8 @@ return [
     'confirm_text' => 'Are you sure you want to proceed?',
     'users' => 'Users',
     'roles' => 'Roles',
+    'pages' => 'Pages',
+    'guard' => 'Guard',
+    'created' => 'Created',
+    'permissions' => 'Permissions',
 ];

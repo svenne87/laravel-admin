@@ -94,7 +94,7 @@
                     <div class="form-group">
                         <p class="mb-1">{{ $t('general.roles') }}</p>
                         <b-form-checkbox-group v-model="role.checked" v-for="(role, index) in roles" :key="index">
-                            <b-form-checkbox :v-value="role.name + '@' + role.guard">{{ role.display }} ({{ role.guard }})</b-form-checkbox>
+                            <b-form-checkbox :v-value="role.id">{{ role.display }} ({{ role.guard }})</b-form-checkbox>
                         </b-form-checkbox-group>
                     </div>
                     <div class="form-group">
@@ -155,7 +155,7 @@
                         for (var i = 0; i < data.data.length; i++) {
                             data.data[i].checked = false;
 
-                            if ((this.$route.params.id - 0)) {
+                            if ((this.$route.params.id - 0) && this.user.roles) {
                                 for (var x = 0; x < this.user.roles.length; x++) {
                                     if (data.data[i].id == this.user.roles[x].id) {
                                         data.data[i].checked = true;
@@ -171,11 +171,9 @@
             }, 
             onSubmit() {
                 this.saved = false;
-
-                this.user.roles = this.roles;
-
-                this.user.roles = this.user.roles.filter(function (item) {
-                    return item.checked == true;
+                
+                this.user.roles = this.roles.filter(function (item) {
+                    return item.checked;
                 });
 
                 if (this.action == 'create') {
