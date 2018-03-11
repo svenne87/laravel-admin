@@ -34,7 +34,8 @@
                     </div>
                     <b-form-group :label="$t('general.permissions')">
                         <b-form-checkbox-group v-model="permission.checked" v-for="(permission, index) in permissions" :key="index">
-                            <b-form-checkbox :v-value="permission.name">{{ permission.display }} ({{ permission.guard }})</b-form-checkbox>
+                            <p class="text-muted mt-2 mb-0" v-if="index > 0 && getLastPartOfString(permissions[index-1].name) !== getLastPartOfString(permission.name)">{{ capitalize(getLastPartOfString(permission.name)) }}</p>
+                            <b-form-checkbox :v-value="permission.id">{{ permission.display }} ({{ permission.guard }})</b-form-checkbox>
                         </b-form-checkbox-group>
                     </b-form-group>
                     <div class="form-group">
@@ -54,7 +55,7 @@
             return {
                 errors: [],
                 saved: false,
-                role : {},
+                role : {guard: 'api'},
                 permissions: [],
                 action : '',
                 guards: [
@@ -66,7 +67,7 @@
                     to: { name: 'home' },
                 }, {
                     text: this.$t('general.roles'),
-                    to: { name: 'users' },
+                    to: { name: 'roles' },
                 }, {
                     text: ((this.$route.params.id - 0) ? this.$t('general.edit') : this.$t('general.create')),
                     active: true
@@ -86,7 +87,7 @@
         methods: {
             fetchData () {
                 if ((this.$route.params.id - 0)) {
-                    // We only need this if user id is set in params
+                    // We only need this if role id is set in params
                     axios.get('/api/v1/roles/' + this.$route.params.id)
                         .then(({data}) => this.role = data.data)
                         .catch(({response}) => console.log(response));
@@ -98,7 +99,6 @@
                         
                         for (var i = 0; i < data.data.length; i++) {
                             data.data[i].checked = false;
-                            
                             if ((this.$route.params.id - 0) && this.role.permissions) {
                                 for (var x = 0; x < this.role.permissions.length; x++) {
                                     if (data.data[i].id == this.role.permissions[x].id) {
@@ -115,16 +115,19 @@
             }, 
             onSubmit() {
                 this.saved = false;
-                this.role.permissions = this.permissions.filter(function (item) {
-                    return item.checked;
-                });
+                this.role.permissions = [];
                 
+                this.role.permissions = this.permissions.filter(function (item) {
+                    let obj = JSON.parse(JSON.stringify(item));
+                    return obj.checked != false;
+                });
+
                 if (this.action == 'create') {
                     axios.post('/api/v1/roles', this.role)
                         .then(({data}) => this.setSuccessMessage())
                         .catch(({response}) => this.setErrors(response));
                 } else if (this.action == 'update') {
-                    axios.put('/api/v1/role/' + this.role.id, this.role)
+                    axios.put('/api/v1/roles/' + this.role.id, this.role)
                         .then(({data}) => this.setSuccessMessage())
                         .catch(({response}) => this.setErrors(response));
                 }
@@ -139,12 +142,18 @@
             },
             reset() {
                 if (this.action == 'create') {
-                    this.role = {};
+                    this.role = {guard: 'api'};
                     for (let permission in this.permission) {
                         this.permissions[permission].checked = false;
                     }
                 } 
                 this.errors = [];
+            },
+            getLastPartOfString(string) {
+                return string.split(' ').pop();
+            },
+            capitalize(string) {
+                return string && string[0].toUpperCase() + string.slice(1);
             }
         },    
     }

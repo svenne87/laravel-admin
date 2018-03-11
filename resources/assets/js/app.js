@@ -59,6 +59,21 @@ const i18n = new VueInternalization({
     messages: Locales // set locale messages
 });
 
+ // Intercept global error
+axios.interceptors.response.use((response) => {
+        return response;
+    }, 
+    function (error) {
+        if (error.response.status === 401) { 
+            // store.dispatch('authfalse') 
+            console.log("Logged out");
+        } else if (error.response.status === 403) {
+            console.log("Unauthorized");
+        }
+        return Promise.reject(error);
+    }
+);
+
 // Router
 const routes = [
     { path: '/', name: 'home', component: require('./components/admin/dashboard/Dashboard.vue') },
@@ -69,6 +84,8 @@ const routes = [
     { path: '/roles/:id', name: 'role-edit', component: require('./components/admin/roles/RoleForm.vue') },
     { path: '/roles/create', name: 'role-create', component: require('./components/admin/roles/RoleForm.vue') },
     { path: '/pages', name: 'pages', component: require('./components/admin/pages/PagesTable.vue') },
+    { path: '/pages/:id', name: 'page-edit', component: require('./components/admin/pages/PageForm.vue') },
+    { path: '/pages/create', name: 'page-create', component: require('./components/admin/pages/PageForm.vue') },
 ];
 
 const router = new VueRouter({

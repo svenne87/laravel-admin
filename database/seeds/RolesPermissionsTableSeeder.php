@@ -19,31 +19,23 @@ class RolesPermissionsTableSeeder extends Seeder
 
         // Permissions
         Permission::create(['guard_name' => 'web', 'name' => 'access admin cp']);
+        Permission::create(['guard_name' => 'web','name' => 'preview posts']);
 
-        // User permissions
-        Permission::create(['guard_name' => 'api', 'name' => 'edit users']);
-        Permission::create(['guard_name' => 'api','name' => 'create users']);
-        Permission::create(['guard_name' => 'api','name' => 'show users']);
-        Permission::create(['guard_name' => 'api','name' => 'delete users']);
+        $allPermissions = $this->getAllPermissions();
 
-        // Role permissions
-        Permission::create(['guard_name' => 'api', 'name' => 'edit roles']);
-        Permission::create(['guard_name' => 'api','name' => 'create roles']);
-        Permission::create(['guard_name' => 'api','name' => 'show roles']);
-        Permission::create(['guard_name' => 'api','name' => 'delete roles']);
-
-        // Permissions permissions
-        Permission::create(['guard_name' => 'api','name' => 'show permissions']);
-
+        foreach ($allPermissions as $permission) {
+            Permission::create(['guard_name' => 'api', 'name' => $permission]);
+        }
+        
         // Create roles and assign existing permissions
         $role = Role::create(['guard_name' => 'api', 'name' => 'super_admin']);
-        $role->givePermissionTo($this->getAllPermissions());
+        $role->givePermissionTo($allPermissions);
 
         $user = User::findOrFail(1);
         $user->assignRole($role);
 
         $role = Role::create(['guard_name' => 'web', 'name' => 'super_admin']);
-        $role->givePermissionTo(['access admin cp']);
+        $role->givePermissionTo(['access admin cp', 'preview posts']);
         $user->assignRole($role);
 
         Role::create(['guard_name' => 'api', 'name' => 'user']);
@@ -62,6 +54,10 @@ class RolesPermissionsTableSeeder extends Seeder
             'show roles',
             'delete roles',
             'show permissions',
+            'edit posts', 
+            'create posts', 
+            'show posts', 
+            'delete posts', 
         ];
     }
 }

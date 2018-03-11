@@ -24,13 +24,9 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
     
     Route::apiResources([
         'users' => 'API\UserController',
+        'roles' => 'API\RoleController',
+        'permissions' => 'API\PermissionController',
+        'posts' => 'API\PostController',
     ]);
 
-    Route::apiResources([
-        'roles' => 'API\RoleController',
-    ]);
-    
-    Route::apiResources([
-        'permissions' => 'API\PermissionController',
-    ]);
 });

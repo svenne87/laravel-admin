@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Auth;
 use Lang;
+use Response;
 
 class RoleController extends Controller
 {
@@ -39,8 +40,8 @@ class RoleController extends Controller
                 });
             }
     
-            $perPage = request()->has('per_page') ? (int) request()->per_page : 20;
-            $roles = $query->paginate($perPage);
+            $perPage = request()->has('per_page') ? (int) request()->per_page : 0;
+            $roles = $perPage == 0 ? $query->get() : $query->paginate($perPage);
             return RoleResource::collection($roles);
         } 
         return abort('403');
@@ -54,7 +55,33 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        
+        if ($user->hasPermissionTo('create roles', 'api')) {
+            $this->validate($request, [
+                'name' => 'required|min:1|max:100|regex:/(^[a-z0-9_]+$)+/', 
+                'guard' => 'required', 
+            ]);
+            
+            $request->merge(['guard_name' => $request->get('guard')]);
+            $role = Role::create($request->only(['name', 'guard_name']));
+
+            if ($request->has('permissions')) {
+                $permissions = $request->get('permissions');
+                $permissionsToAssign = array();
+                
+                foreach ($permissions as $permission) {
+                    $permissionsToAssign[] = Permission::findByName($permission['name'], $permission['guard']); 
+                }
+                
+                $role->syncPermissions($permissionsToAssign);
+            }
+
+            return Response::json([
+                'created' => true,
+            ], 201);
+        }
+        return abort('403');
     }
 
     /**
@@ -84,7 +111,33 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+          
+        if ($user->hasPermissionTo('edit roles', 'api')) {
+            $this->validate($request, [
+                'name' => 'required|min:1|max:100|regex:/(^[a-z0-9_]+$)+/', 
+                'guard' => 'required', 
+            ]);
+            
+            $request->merge(['guard_name' => $request->get('guard')]);
+            $role = Role::findOrFail($id);
+            $role->update($request->only(['name', 'guard_name']));
+
+            if ($request->has('permissions')) {
+                $permissions = $request->get('permissions');
+                $permissionsToAssign = array();
+
+                foreach ($permissions as $permission) {
+                    $permissionsToAssign[] = Permission::findByName($permission['name'], $permission['guard']); 
+                }
+                
+                $role->syncPermissions($permissionsToAssign);
+            }
+
+            $resource = new RoleResource($role);
+            return $resource->response()->setStatusCode(201);
+        }
+        return abort('403');
     }
 
     /**

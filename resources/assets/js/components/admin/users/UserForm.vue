@@ -171,9 +171,11 @@
             }, 
             onSubmit() {
                 this.saved = false;
-                
+                this.user.roles = [];
+
                 this.user.roles = this.roles.filter(function (item) {
-                    return item.checked;
+                    let obj = JSON.parse(JSON.stringify(item));
+                    return obj.checked != false;
                 });
 
                 if (this.action == 'create') {

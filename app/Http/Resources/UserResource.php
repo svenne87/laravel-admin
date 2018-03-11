@@ -26,7 +26,7 @@ class UserResource extends JsonResource
             'joined' => $this->joined,
         ];
 
-        if (Auth::user()->hasPermissionTo('edit users', 'api')) {     
+        if (Auth::user()->hasPermissionTo('create users', 'api') || Auth::user()->hasPermissionTo('edit users', 'api')) { 
             $this->roles->each(function($role) use (&$resource) {
                 !isset($resource['roles']) ?? $resource['roles'] = array();
                 $resource['roles'][] = new RoleResource($role);

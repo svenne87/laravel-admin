@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
@@ -13,7 +14,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['content', 'description', 'title'];
+    protected $fillable = ['content', 'description', 'title', 'slug', 'status', 'post_type', 'author_id'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -40,7 +41,7 @@ class Post extends Model
      * @return mixed
      */
     public function setAuthor(User $user) {
-        $this->user_id = $user->id;
+        $this->author_id = $user->id;
         $this->save();
     }
 
@@ -50,5 +51,13 @@ class Post extends Model
     public function getLinkAttribute()
     {
         return route('page', ['pageSlug' => $this->slug]);
+    }
+
+    /**
+     * Return the created_at date formatted
+     */
+    public function getCreatedAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }

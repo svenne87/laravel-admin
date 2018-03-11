@@ -252,6 +252,7 @@ class UserController extends Controller
     Larval blade extend
     https://cms.botble.com/admin
     https://github.com/axios/axios/issues/690
+    https://github.com/spatie/laravel-medialibrary
     https://tutsforweb.com/laravel-5-5-and-dropzone-js-uploading-images-with-removal-links/
     // UserResource conditional if admin or not...
     // TODO include permissions into Vue
