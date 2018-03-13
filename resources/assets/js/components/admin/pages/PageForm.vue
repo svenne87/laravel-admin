@@ -108,7 +108,7 @@
                 errors: [],
                 saved: false,
                 disableSlug: true,
-                page : {status: 'inactive', post_type: 'page'},
+                page : {status: 'inactive', post_type: 'page', template: 'default-page'},
                 templateOptions: [
                      {value: 'default-page', text: 'Default'},
                 ],
@@ -177,7 +177,7 @@
             },
             reset() {
                 if (this.action == 'create') {
-                    this.page = {status: 'inactive', post_type: 'page'};
+                    this.page = {status: 'inactive', post_type: 'page', template: 'default-page'};
                 } 
                 this.errors = [];
             },

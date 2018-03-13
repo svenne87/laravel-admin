@@ -92,7 +92,6 @@ class PostController extends Controller
             // We are allowed to show any Post
             $post = Post::findOrFail($id);
             $resource = new PostResource($post);
-
             return $resource->response()->setStatusCode(200);
         } 
         return abort('403');
