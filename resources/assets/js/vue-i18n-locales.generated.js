@@ -1,26 +1,5 @@
 export default {
     "en": {
-        "errors": {
-            "form_error": "See below for errors.",
-            "404": "404",
-            "404_title": "Not found",
-            "404_message": "Sorry, we can't seem to find what you are looking for.",
-            "500": "500",
-            "500_title": "Somthing went wrong",
-            "500_message": "We seem to have made som mistake here, please try again.",
-            "common_error": "Sorry, something went wrong.",
-            "401": "Unauthorized. You need to authenticate before you can access this resource.",
-            "403": "Forbidden. You do not have permission to access this resource.",
-            "no_image": "No image found in request.",
-            "error": "Error"
-        },
-        "passwords": {
-            "password": "Passwords must be at least six characters and match the confirmation.",
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address."
-        },
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
@@ -36,9 +15,74 @@ export default {
             "remember_me": "Remember Me",
             "forgot_password": "Forgot Your Password?"
         },
+        "errors": {
+            "form_error": "See below for errors.",
+            "404": "404",
+            "404_title": "Not found",
+            "404_message": "Sorry, we can't seem to find what you are looking for.",
+            "500": "500",
+            "500_title": "Somthing went wrong",
+            "500_message": "We seem to have made som mistake here, please try again.",
+            "common_error": "Sorry, something went wrong.",
+            "401": "Unauthorized. You need to authenticate before you can access this resource.",
+            "403": "Forbidden. You do not have permission to access this resource.",
+            "no_image": "No image found in request.",
+            "error": "Error"
+        },
+        "form": {
+            "profile_saved": "Your profile has been saved successfully.",
+            "image_saved": "Your avatar has been updated successfully.",
+            "deleted": "Resource has been deleted successfully",
+            "user_saved": "User has been saved successfully.",
+            "role_saved": "Role has been saved successfully.",
+            "page_saved": "Page has been saved successfully."
+        },
+        "general": {
+            "email_address": "E-Mail Address",
+            "name": "Name",
+            "home": "Home",
+            "profile": "Profile",
+            "save": "Save",
+            "success": "Success",
+            "account": "Account",
+            "joined": "Joined",
+            "upload": "Upload",
+            "search": "Search",
+            "search_for": "Search for...",
+            "create_user": "Create User",
+            "create_role": "Create Role",
+            "create_page": "Create Page",
+            "edit": "Edit",
+            "create": "Create",
+            "delete": "Delete",
+            "confirm": "Confirm",
+            "close": "Close",
+            "confirm_text": "Are you sure you want to proceed?",
+            "users": "Users",
+            "roles": "Roles",
+            "pages": "Pages",
+            "guard": "Guard",
+            "title": "Title",
+            "status": "Status",
+            "created": "Created",
+            "permissions": "Permissions",
+            "description": "Description",
+            "slug": "Slug",
+            "content": "Content",
+            "author": "Author",
+            "preview": "Preview",
+            "template": "Page template"
+        },
         "pagination": {
             "previous": "&laquo; Previous",
             "next": "Next &raquo;"
+        },
+        "passwords": {
+            "password": "Passwords must be at least six characters and match the confirmation.",
+            "reset": "Your password has been reset!",
+            "sent": "We have e-mailed your password reset link!",
+            "token": "This password reset token is invalid.",
+            "user": "We can't find a user with that e-mail address."
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -122,47 +166,6 @@ export default {
                 }
             },
             "attributes": []
-        },
-        "form": {
-            "profile_saved": "Your profile has been saved successfully.",
-            "image_saved": "Your avatar has been updated successfully.",
-            "deleted": "Resource has been deleted successfully",
-            "user_saved": "User has been saved successfully.",
-            "role_saved": "Role has been saved successfully."
-        },
-        "general": {
-            "email_address": "E-Mail Address",
-            "name": "Name",
-            "home": "Home",
-            "profile": "Profile",
-            "save": "Save",
-            "success": "Success",
-            "account": "Account",
-            "joined": "Joined",
-            "upload": "Upload",
-            "search": "Search",
-            "search_for": "Search for...",
-            "create_user": "Create User",
-            "create_role": "Create Role",
-            "create_page": "Create Page",
-            "edit": "Edit",
-            "create": "Create",
-            "delete": "Delete",
-            "confirm": "Confirm",
-            "close": "Close",
-            "confirm_text": "Are you sure you want to proceed?",
-            "users": "Users",
-            "roles": "Roles",
-            "pages": "Pages",
-            "guard": "Guard",
-            "title": "Title",
-            "status": "Status",
-            "created": "Created",
-            "permissions": "Permissions",
-            "description": "Description",
-            "slug": "Slug",
-            "content": "Content",
-            "author": "Author"
         }
     }
 }

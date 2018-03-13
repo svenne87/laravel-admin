@@ -41,4 +41,6 @@ return [
     'slug' => 'Slug',
     'content' => 'Content',
     'author' => 'Author',
+    'preview' => 'Preview',
+    'template' => 'Page template',
 ];

@@ -14,12 +14,15 @@
 Route::get('/', 'WelcomeController@index')->name('welcome');
 
 Auth::routes();
+
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/profile', 'ProfileController@index')->name('profile');
+    Route::get('/profile', 'Web\ProfileController@index')->name('profile');
 });
 
 Route::group(['middleware' => ['permission:access admin cp']], function () {
     Route::get('/admin-cp', 'Admin\AdminController@index')->name('admin-cp');
 });
+
+Route::get('/{slug}', 'Web\PageController@view')->name('page_view');
 
 Route::fallback('WelcomeController@notFound');

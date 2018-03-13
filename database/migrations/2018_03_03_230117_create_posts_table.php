@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
             $table->integer('depth')->nullable();
             $table->string('description');
             $table->text('content')->nullable();
+            $table->string('template', 40)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

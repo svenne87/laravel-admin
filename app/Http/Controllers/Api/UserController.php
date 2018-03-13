@@ -254,7 +254,6 @@ class UserController extends Controller
     https://github.com/axios/axios/issues/690
     https://github.com/spatie/laravel-medialibrary
     https://tutsforweb.com/laravel-5-5-and-dropzone-js-uploading-images-with-removal-links/
-    // UserResource conditional if admin or not...
     // TODO include permissions into Vue
     // TODO navbar image = make it a vue template?
     // TODO Style Login

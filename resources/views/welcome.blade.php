@@ -7,10 +7,11 @@
         <meta name="description" content="CMS with API in Laravel">
         <meta name="author" content="Emil Svensson">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="base-url" content="{{ URL::to('/') }}">
         <meta data-timezone="{{ Config::get('app.timezone') }}">
         <meta data-environment="{{ App::environment() }}">
         <title>{{ Config::get('app.name') }}</title>
-
+        
         <!-- Styles -->
         @include('partials.styles')
         @yield('styles')

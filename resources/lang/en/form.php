@@ -13,4 +13,5 @@ return [
     'deleted' => 'Resource has been deleted successfully',
     'user_saved' => 'User has been saved successfully.',
     'role_saved' => 'Role has been saved successfully.',
+    'page_saved' => 'Page has been saved successfully.',
 ];

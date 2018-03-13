@@ -14,7 +14,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['content', 'description', 'title', 'slug', 'status', 'post_type', 'author_id'];
+    protected $fillable = ['content', 'description', 'title', 'slug', 'status', 'post_type', 'author_id', 'template'];
 
     /**
      * The attributes that should be mutated to dates.

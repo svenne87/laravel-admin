@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="alert alert-success" v-if="saved">
-                    {{ $t('form.role_saved') }}
+                    {{ $t('form.page_saved') }}
                 </div>
             </div>
         </div>
@@ -18,6 +18,7 @@
                                 <span class="input-group-addon"><i class="icon-notebook" aria-hidden="true"></i></span>
                                 <input id="title"
                                     v-model="page.title"
+                                    @blur="setPageSlug"
                                     type="text"
                                     :placeholder="$t('general.title')"
                                     class="form-control">
@@ -29,13 +30,16 @@
                         <label class="control-label" for="slug">{{ $t('general.slug') }}</label>
                         <div :class="{'has-error': errors.slug}">
                             <div class="input-group mb-0">
-                                <span class="input-group-addon"><i class="icon-direction" aria-hidden="true"></i></span>
+                                <span class="input-group-addon"><i class="icon-direction" aria-hidden="true"></i></span><span class="value-addon">{{ baseUrl }}/</span>
                                 <input id="slug"
                                     v-model="page.slug"
-                                    @keyup="setPageSlug"
                                     type="text"
+                                    ref="slugInput"
+                                    :readonly="disableSlug"
+                                    @click="disableSlug = !disableSlug"
+                                    @blur="disableSlug = true"
                                     :placeholder="$t('general.slug')"
-                                    class="form-control">
+                                    class="form-control no-border-left">
                             </div>
                             <span v-if="errors.slug" class="help-block text-danger">{{ errors.slug[0] }}</span>
                         </div>
@@ -75,6 +79,18 @@
                             <b-form-select v-model="page.status" :options="status" class="mb-0" />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label">{{ $t('general.template') }}</label>
+                        <div class="input-group mb-0">
+                            <span class="input-group-addon"><i class="icon-info" aria-hidden="true"></i></span>
+                            <b-form-select v-model="page.template" :options="templateOptions" class="mb-0" />
+                        </div>
+                    </div>
+                    <div v-if="action == 'update'" class="form-group">
+                        <label class="control-label">{{ $t('general.preview') }}</label>
+                        <div class="clearfix"></div>
+                        <a :href="baseUrl + '/' + page.slug" class="btn btn-primary" target="_blank">{{ $t('general.preview') }}</a>
+                    </div>
                 </fieldset>
             </form>
         </div>
@@ -86,17 +102,20 @@
 
     Vue.component('tinymce', tinymce)
 
-
-    export default {   
+    export default {
         data() {
             return {
                 errors: [],
                 saved: false,
+                disableSlug: true,
                 page : {status: 'inactive', post_type: 'page'},
+                templateOptions: [
+                     {value: 'default-page', text: 'Default'},
+                ],
                 action : '',
                 status: [
-                    { value: 'inactive', text: 'Inactive'},
-                    { value: 'active', text: 'Active'},
+                    {value: 'inactive', text: 'Inactive'},
+                    {value: 'active', text: 'Active'},
                 ],
                 items: [{
                     text: this.$t('general.home'),
@@ -118,6 +137,9 @@
               
             // Fetch the data when the view is created and the data is already being observed
             this.fetchData();
+        },
+        computed: {
+            baseUrl: function () { return window.baseUrl; },
         },
         watch: {
             // Call again the method if the route changes
@@ -155,7 +177,7 @@
             },
             reset() {
                 if (this.action == 'create') {
-                    this.page = {status: 'inactive'};
+                    this.page = {status: 'inactive', post_type: 'page'};
                 } 
                 this.errors = [];
             },
@@ -163,14 +185,26 @@
                 return string.replace(/[^a-z0-9]/gi, '-').toLowerCase();
             },
             setPageSlug() {
-                //_.debounce(function () {
 
-
-                if (this.page.slug) {
-                    this.page.slug = this.getUrlSafeString(this.page.slug);
+                if ((this.$route.params.id - 0)) {
+                     this.page.slug = this.getUrlSafeString(this.page.slug);
+                } else {
+                    this.page.slug = this.getUrlSafeString(this.page.title);
                 }
-               // }, 500)
+
+                this.$forceUpdate();
             }
         },    
     }
 </script>
+<style>
+    span.value-addon {
+        line-height: 2.2em;
+        padding: 0 .3rem 0;
+        border: 1px solid #ced4da;
+        border-right: none;
+    }
+    .no-border-left {
+        border-left: none;
+    }
+</style>

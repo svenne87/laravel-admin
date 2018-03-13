@@ -10,6 +10,7 @@ use Auth;
 use Lang;
 use Response;
 use App\Post;
+use Cache;
 
 class PostController extends Controller
 {
@@ -65,7 +66,7 @@ class PostController extends Controller
         if ($user->hasPermissionTo('create posts', 'api')) {
             $this->validate($request, [
                 'title' => 'required|min:3|max:200', 
-                'slug' => 'unique:posts|required|regex:/(^[a-z0-9_]+$)+/', 
+                'slug' => 'unique:posts|required|regex:/(^[a-z0-9-]+$)+/', 
                 'status' => 'required|', 
             ]);
 
@@ -111,7 +112,7 @@ class PostController extends Controller
         if ($user->hasPermissionTo('edit posts', 'api')) {
             $this->validate($request, [
                 'title' => 'required|min:3|max:200', 
-                'slug' => 'unique:posts,slug,'.$id.'|required|regex:/(^[a-z0-9_]+$)+/', 
+                'slug' => 'unique:posts,slug,'.$id.'|required|regex:/(^[a-z0-9-]+$)+/', 
                 'status' => 'required|', 
             ]);
             
@@ -119,8 +120,13 @@ class PostController extends Controller
             $post->update($request->all());
 
             $resource = new PostResource($post);
+
+            // Clear this cache
+            Cache::forget('pages_' . $post->slug);
+            
             return $resource->response()->setStatusCode(201);
         }
+
         return abort('403');
     }
 

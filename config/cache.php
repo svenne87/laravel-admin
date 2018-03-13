@@ -27,7 +27,7 @@ return [
     | same cache driver to group types of items stored in your caches.
     |
     */
-
+    
     'stores' => [
 
         'apc' => [
