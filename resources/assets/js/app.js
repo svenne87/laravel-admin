@@ -74,7 +74,7 @@ axios.interceptors.response.use((response) => {
     }
 );
 
-// Router
+// Router 
 const routes = [
     { path: '/', name: 'home', component: require('./components/admin/dashboard/Dashboard.vue') },
     { path: '/users', name: 'users', component: require('./components/admin/users/UsersTable.vue') },
@@ -90,7 +90,7 @@ const routes = [
 
 const router = new VueRouter({
     base: '/admin-cp/',
-    routes
+    routes: routes,
 });
 
 const app = new Vue({
