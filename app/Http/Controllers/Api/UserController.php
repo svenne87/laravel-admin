@@ -234,7 +234,6 @@ class UserController extends Controller
     https://github.com/spatie/laravel-permission#installation
     https://github.com/atayahmet/laravel-nestable
     https://laracasts.com/series/laravel-5-fundamentals/episodes/25
-    https://www.froala.com/wysiwyg-editor  - but in vue
     https://github.com/ratiw/vuetable-2-tutorial-bootstrap/blob/master/src/components/MyVuetable.vue
     ( https://github.com/lavary/laravel-menu )
     https://bootstrap-vue.js.org/docs/components/
@@ -258,4 +257,14 @@ class UserController extends Controller
     // TODO navbar image = make it a vue template?
     // TODO Style Login
     // TODO should split admin and client app... But keep same landing page for roles and start app there, just different app depending on role?
+
+    https://github.com/Jeroen-G/Laravel-Packager
+    https://github.com/RachidLaasri/LaravelInstaller
+    https://github.com/spatie/laravel-sluggable
+    https://github.com/amsgames/laravel-shop
+    https://github.com/nWidart/laravel-modules
+    https://github.com/Lecturize/Laravel-Taxonomies
+
+    MODEL_CACHE_DRIVER=redis
+    REDIS_HOST=172.21.0.5
 */

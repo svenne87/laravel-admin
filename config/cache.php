@@ -73,6 +73,11 @@ return [
             'connection' => 'default',
         ],
 
+        'model_cache' => [
+            'driver' => 'model-cache',
+            'connection' => 'default',
+        ],
+
     ],
 
     /*

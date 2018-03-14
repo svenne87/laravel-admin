@@ -20,11 +20,13 @@ class PageController extends Controller
     public function view($slug)
     {
         $user = Auth::user();
-        $minutes = Config::get('settings.pages_cache_time');
-
+        //$minutes = Config::get('settings.pages_cache_time');
+        /*
         $page = Cache::remember('pages_' . $slug, $minutes, function() use ($slug, $user) {
             return Post::where('post_type', 'page')->where('slug', $slug)->firstOrFail();
         });
+        */
+        $page = Post::where('post_type', 'page')->where('slug', $slug)->firstOrFail();
         
         // Make sure to check if we are allowed to view unpublished pages
         if ($page->status == 'inactive') {

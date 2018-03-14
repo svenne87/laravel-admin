@@ -53,3 +53,7 @@ run.config:
 # MySQL database
 data.db:
   image: nanobox/mysql:5.7
+
+# Redis cache
+data.redis :
+  image : nanobox/redis:3.2
