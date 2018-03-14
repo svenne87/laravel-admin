@@ -24,7 +24,6 @@ class Post extends Model
      */
     protected $dates = ['deleted_at'];
 
-
     /**
      * A Post have single Author (User).
      *

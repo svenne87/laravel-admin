@@ -149,8 +149,7 @@ return [
         /*
          * Package Service Providers...
          */
-
-        Devfactory\Taxonomy\TaxonomyServiceProvider::class,
+        
         Nestable\NestableServiceProvider::class,
 
         /*
@@ -213,7 +212,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Nestable' => Nestable\Facades\NestableService::class,
-        'Taxonomy' => Devfactory\Taxonomy\Facades\TaxonomyFacade::class,
     ],
 
 ];
