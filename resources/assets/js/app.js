@@ -25,6 +25,9 @@ import Locales from './vue-i18n-locales.generated.js'
 import FormError from './components/shared/FormError.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
+import routes from './routes.js'
+import VuexStore from './store'; 
 
 const VueResource = require('vue-resource');
 const VueProgressBar = require('vue-progressbar');
@@ -44,6 +47,7 @@ const options = {
 const VueResourceProgressBarInterceptor = require('vue-resource-progressbar-interceptor');
 
 Vue.use(VueResource)
+Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(VueProgressBar, options)
 Vue.use(VueResourceProgressBarInterceptor)
@@ -53,7 +57,6 @@ Vue.use(BootstrapVue)
 // Language
 Vue.config.lang = 'en';
 
-console.log(permissions);
 const i18n = new VueInternalization({
     locale: 'en', // set locale
     messages: Locales // set locale messages
@@ -74,20 +77,10 @@ axios.interceptors.response.use((response) => {
     }
 );
 
-// Router 
-const routes = [
-    { path: '/', name: 'home', component: require('./components/admin/dashboard/Dashboard.vue') },
-    { path: '/users', name: 'users', component: require('./components/admin/users/UsersTable.vue') },
-    { path: '/users/:id', name: 'user-edit', component: require('./components/admin/users/UserForm.vue') },
-    { path: '/users/create', name: 'user-create', component: require('./components/admin/users/UserForm.vue') },
-    { path: '/roles', name: 'roles', component: require('./components/admin/roles/RolesTable.vue') },
-    { path: '/roles/:id', name: 'role-edit', component: require('./components/admin/roles/RoleForm.vue') },
-    { path: '/roles/create', name: 'role-create', component: require('./components/admin/roles/RoleForm.vue') },
-    { path: '/pages', name: 'pages', component: require('./components/admin/pages/PagesTable.vue') },
-    { path: '/pages/:id', name: 'page-edit', component: require('./components/admin/pages/PageForm.vue') },
-    { path: '/pages/create', name: 'page-create', component: require('./components/admin/pages/PageForm.vue') },
-];
+// Store
+const store = new Vuex.Store(VuexStore);  
 
+// Router 
 const router = new VueRouter({
     base: '/admin-cp/',
     routes: routes,
@@ -97,29 +90,44 @@ const app = new Vue({
     el: '#app',
     i18n,
     router,
-    data: {
-        permissions : permissions
-    },
+    store,
     mounted () {
-        this.$Progress.finish()
+        this.$store.commit('setPermissions', permissions);
+        this.$Progress.finish();
     },
     created () {
         this.$Progress.start()
-        //  hook the progress bar to start before we move router-view
+        // Hook the progress bar to start before we move router-view
         this.$router.beforeEach((to, from, next) => {
-            
-            console.log(this.permissions)
+            let access = false;
 
-            //  start the progress bar
-            this.$Progress.start()
-            //  continue to next page
-            next()
-        })
-        //  hook the progress bar to finish after we've finished moving router-view
+            if (to.meta.requiresPermissions && to.meta.requiresPermissions instanceof Array) {
+                 // This route requires permissions
+                let neededPermissions = to.meta.requiresPermissions;
+
+                // access will be true if all permissions needed are found in store 
+                access = neededPermissions.every(function (value) {
+                    return value === store.getters.hasPermission(value);
+                });
+            } else {
+                // No permissions are needed
+                access = true;
+            }      
+
+            if (access == true) {
+                // Start the progress bar
+                this.$Progress.start();
+                // Continue to next page
+                next();
+            } else {
+                next({ path: '/' });
+            }
+        });
+        // Hook the progress bar to finish after we've finished moving router-view
         this.$router.afterEach((to, from) => {
-            //  finish the progress bar
-            this.$Progress.finish()
-        })
+            // Finish the progress bar
+            this.$Progress.finish();
+        });
     }
 });
 
