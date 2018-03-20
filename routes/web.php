@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index')->name('welcome');
+Route::get('/', 'MasterController@index')->name('master');
 
 Auth::routes();
 
@@ -25,4 +25,4 @@ Route::group(['middleware' => ['permission:access admin cp']], function () {
 
 Route::get('/{slug}', 'Web\PageController@view')->name('page_view');
 
-Route::fallback('WelcomeController@notFound');
+Route::fallback('MasterController@notFound');

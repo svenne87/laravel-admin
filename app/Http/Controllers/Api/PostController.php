@@ -10,7 +10,7 @@ use Auth;
 use Lang;
 use Response;
 use App\Post;
-use Cache;
+//use Cache;
 
 class PostController extends Controller
 {
@@ -120,8 +120,7 @@ class PostController extends Controller
 
             $resource = new PostResource($post);
 
-            // Clear this cache
-            Cache::forget('pages_' . $post->slug);
+            // Clear this cache Cache::forget('pages_' . $post->slug);
             
             return $resource->response()->setStatusCode(201);
         }

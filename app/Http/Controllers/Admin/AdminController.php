@@ -14,7 +14,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $baseUrl = array('url' => 'sss'); //   URL::to('/');
-        return view('layouts.admin-cp.app', compact('baseUrl'));
+        return view('layouts.admin-cp.app');
     }
 }

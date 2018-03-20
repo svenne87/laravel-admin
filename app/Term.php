@@ -25,7 +25,7 @@ class Term extends Model
     }
     
     /**
-     * A Term may belong to multiple Vocabularie.
+     * A Term may belong to multiple Vocabularies.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

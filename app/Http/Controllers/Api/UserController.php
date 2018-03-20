@@ -227,7 +227,6 @@ class UserController extends Controller
     }
 }
 
-
 /*
     https://github.com/stevebauman/revision   - install?
     https://github.com/Intervention/image
@@ -241,11 +240,8 @@ class UserController extends Controller
     
     Tester update i UserController + allt i Roles, Permissions controller
 
-    Change vou-router to use child routes and simple bread crumbs
-    'welcome' -> 'master'
     Should create .env och set certain values + copy default image and cretae avatars dir etc.
     ln -s ../storage/app/public storage   (run in public (not in nanobox virtual))
-    500 duplicates view
     php artisan vue-i18n:generate
     php artisan passport:install
     Larval blade extend

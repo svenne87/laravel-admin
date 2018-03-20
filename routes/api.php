@@ -27,6 +27,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
         'roles' => 'API\RoleController',
         'permissions' => 'API\PermissionController',
         'posts' => 'API\PostController',
+        'vocabularies' => 'API\VocabularyController',
     ]);
 
 });
